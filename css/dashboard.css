@@ -1,0 +1,304 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap");
+
+/* ============ TOKEN ============ */
+:root {
+  --navy: #0a2a5e;
+  --blue: #0057b8;
+  --hero-a: #2159c9;
+  --hero-b: #123a96;
+  --red: #d6181f;
+  --page: #f3f7fd;
+  --white: #ffffff;
+  --ink: #14213d;
+  --muted: #5d6b85;
+  --line: #d9e2f0;
+
+  --radius: 18px;
+  --wrap: 1120px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--page);
+}
+
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, p { margin: 0; }
+img { display: block; max-width: 100%; }
+
+.ico {
+  width: 22px; height: 22px;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+/* ============ HEADER ============ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+  background: linear-gradient(150deg, var(--hero-a), var(--hero-b));
+}
+
+.hero__inner {
+  position: relative;
+  max-width: var(--wrap);
+  min-height: 280px;
+  margin: 0 auto;
+  padding: 20px 20px 86px;
+}
+
+.hero__top {
+  position: relative; z-index: 2;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+}
+
+.logo { display: inline-flex; align-items: center; gap: 8px; color: var(--white); }
+.logo__icon { width: 30px; height: 30px; flex: none; }
+.logo__bank { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 26px; line-height: 1; }
+.logo__btn { position: relative; font-size: 28px; font-weight: 800; font-style: italic; line-height: 1; letter-spacing: .5px; }
+.logo__btn::after {
+  content: ""; position: absolute; left: -2px; right: 2px; bottom: -7px;
+  height: 4px; border-radius: 4px; background: var(--red); transform: skewX(-24deg);
+}
+
+.tagline { display: flex; align-items: center; gap: 8px; font-size: 11px; line-height: 1.3; color: #dbe6ff; }
+.tagline__icon {
+  display: grid; place-items: center; flex: none;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, .7);
+}
+.tagline__icon .ico { width: 17px; height: 17px; }
+
+.hero__body { position: relative; z-index: 2; max-width: 56%; margin-top: 30px; }
+.hero__title { font-size: 28px; font-weight: 700; line-height: 1.2; }
+.hero__text { margin-top: 8px; max-width: 34ch; font-size: 14px; color: #dbe6ff; }
+
+.hero__img {
+  position: absolute; z-index: 1;
+  right: 0; top: 56px; bottom: 0;
+  width: 52%; height: calc(100% - 56px);
+  object-fit: cover; object-position: left bottom;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 34%);
+}
+
+.hero__wave {
+  position: absolute; z-index: 3;
+  left: 0; right: 0; bottom: -1px;
+  display: block; width: 100%; height: 64px;
+}
+.wave__red { fill: var(--red); }
+.wave__page { fill: var(--page); }
+
+/* ============ HALAMAN ============ */
+/* padding-top = jarak antara hero ("Halo, Nasabah") dan tombol Buat Pengaduan */
+.page { max-width: var(--wrap); margin: 0 auto; padding: 28px 20px 8px; }
+
+/* ============ TOMBOL BUAT PENGADUAN ============ */
+.cta {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  color: var(--white);
+  background: linear-gradient(135deg, #e3262d, #c4141b);
+  box-shadow: 0 10px 24px rgba(214, 24, 31, .28);
+  transition: transform .2s var(--ease), box-shadow .2s;
+}
+.cta:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(214, 24, 31, .36); }
+.cta:active { transform: scale(.985); }
+
+.cta__icon {
+  display: grid; place-items: center; flex: none;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(255, 255, 255, .18);
+}
+.cta__icon .ico { width: 30px; height: 30px; }
+
+.cta__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cta__title { font-size: 20px; font-weight: 600; line-height: 1.25; }
+.cta__desc { font-size: 13px; line-height: 1.45; color: #ffe3e3; }
+
+.cta__go {
+  display: grid; place-items: center; flex: none;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--white); color: var(--red);
+  transition: transform .25s var(--ease);
+}
+.cta:hover .cta__go { transform: translateX(5px); }
+
+/* ============ PRODUK & LAYANAN ============ */
+.section-title { margin: 30px 0 14px; font-size: 20px; font-weight: 700; color: var(--navy); }
+.section-title::after {
+  content: ""; display: block; width: 44px; height: 3px; margin-top: 6px;
+  border-radius: 2px; background: var(--blue);
+}
+
+/* Selalu 2 x 2 (HP, tablet, laptop) */
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Kartu berbentuk kotak: aspect-ratio menjaga bentuk,
+   kalau isi lebih panjang kartu otomatis melebar ke bawah (tidak terpotong) */
+/* Tanpa overflow:hidden supaya aspect-ratio tidak memotong isi kartu */
+.card {
+  position: relative;
+  display: flex; flex-direction: column; gap: 4px;
+  aspect-ratio: 1 / 1;
+  padding: 14px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--tint, #eaf2fd);
+  transition: transform .2s var(--ease), box-shadow .2s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(10, 42, 94, .12); }
+
+.card--kpr      { --tint: #eaf2fd; }
+.card--tabungan { --tint: #fdf4e6; }
+.card--digital  { --tint: #eceffd; }
+.card--kur      { --tint: #e8f5f0; }
+
+/* Foto: pojok kanan atas, sejajar dengan baris ikon (tidak menimpa teks) */
+.card__img {
+  position: absolute; top: 0; right: 0;
+  width: 58%; height: 60px;
+  border-top-right-radius: var(--radius);
+  object-fit: cover; object-position: center;
+  -webkit-mask-image: linear-gradient(to bottom left, #000 50%, transparent 100%);
+          mask-image: linear-gradient(to bottom left, #000 50%, transparent 100%);
+}
+
+.card__icon {
+  position: relative; z-index: 1;
+  display: grid; place-items: center;
+  width: 38px; height: 38px; margin-bottom: 2px; border-radius: 50%;
+  background: rgba(255, 255, 255, .9); color: var(--blue);
+  box-shadow: 0 2px 8px rgba(10, 42, 94, .08);
+}
+.card__icon .ico { width: 20px; height: 20px; }
+
+.card__title { position: relative; z-index: 1; font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--navy); }
+.card__text { position: relative; z-index: 1; font-size: 11.5px; line-height: 1.45; color: var(--muted); }
+
+.card__eg { position: relative; z-index: 1; margin-top: auto; padding-top: 6px; }
+.card__eg p { margin-top: 3px; font-size: 10.5px; line-height: 1.4; color: var(--muted); }
+
+.chip {
+  display: inline-block; padding: 1px 8px;
+  border-radius: 999px; background: rgba(0, 87, 184, .1);
+  font-size: 10.5px; font-weight: 600; color: var(--blue);
+}
+
+/* ============ BANNER BAWAH ============ */
+.care {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center;
+  min-height: 160px; margin-top: 18px; padding: 22px 20px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: #e6efff;
+}
+.care__body { position: relative; z-index: 1; max-width: 56%; }
+.care__title { font-size: 18px; font-weight: 700; line-height: 1.3; color: var(--navy); }
+.care__text { margin-top: 6px; font-size: 13px; color: var(--muted); }
+
+.care__img {
+  position: absolute; right: 0; bottom: 0;
+  width: 46%; height: 100%;
+  object-fit: cover; object-position: right bottom;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 40%);
+}
+
+/* ============ FOOTER ============ */
+.foot { margin-top: 28px; line-height: 0; }
+.foot svg { display: block; width: 100%; height: 72px; }
+.foot__blue { fill: var(--hero-b); }
+.foot__red { fill: var(--red); }
+
+/* ============ RESPONSIF ============ */
+
+/* HP (di bawah 560px): kartu dirapatkan, baris "Contoh" disembunyikan
+   supaya kartu tetap berbentuk kotak, bukan panjang ke bawah */
+@media (max-width: 559px) {
+  .card { padding: 12px; gap: 3px; }
+  .card__title { font-size: 13px; }
+  .card__text { font-size: 11px; line-height: 1.4; }
+  .card__eg { display: none; }
+}
+
+/* HP sangat kecil: 1 kolom supaya teks tetap terbaca */
+@media (max-width: 339px) {
+  .products { grid-template-columns: 1fr; }
+  .card { aspect-ratio: auto; min-height: 200px; }
+}
+
+/* HP besar / tablet kecil */
+@media (min-width: 560px) {
+  .products { gap: 16px; }
+  .card { gap: 6px; padding: 20px; }
+  .card__img { height: 84px; }
+  .card__icon { width: 46px; height: 46px; }
+  .card__icon .ico { width: 24px; height: 24px; }
+  .card__title { font-size: 16px; }
+  .card__text { font-size: 13px; }
+  .card__eg p { font-size: 12px; }
+  .chip { font-size: 11.5px; padding: 2px 10px; }
+}
+
+@media (min-width: 760px) {
+  .hero__inner { min-height: 320px; padding: 28px 28px 100px; }
+  .hero__top { align-items: center; }
+  .logo__bank { font-size: 32px; }
+  .logo__btn { font-size: 34px; }
+  .logo__icon { width: 36px; height: 36px; }
+  .tagline { font-size: 13px; }
+  .hero__body { margin-top: 44px; max-width: 50%; }
+  .hero__title { font-size: 40px; }
+  .hero__text { font-size: 17px; max-width: 36ch; }
+  .hero__img { top: 80px; height: calc(100% - 80px); width: 50%; }
+  .hero__wave { height: 90px; }
+
+  .page { padding: 40px 28px 12px; }
+  .cta { padding: 24px 28px; gap: 22px; }
+  .cta__icon { width: 68px; height: 68px; }
+  .cta__title { font-size: 24px; }
+  .cta__desc { font-size: 15px; }
+  .cta__go { width: 52px; height: 52px; }
+
+  .section-title { margin-top: 38px; font-size: 24px; }
+  .products { gap: 18px; }
+
+  .care { min-height: 200px; margin-top: 24px; padding: 32px; }
+  .care__title { font-size: 24px; }
+  .care__text { font-size: 15px; max-width: 42ch; }
+  .foot svg { height: 100px; }
+}
+
+/* Laptop: kartu agak melebar (4:3) dengan foto di sisi kanan.
+   Tetap 2 x 2, bukan 4 kartu panjang sejajar */
+@media (min-width: 900px) {
+  .card { aspect-ratio: 4 / 3; padding: 24px; }
+  .card__img { width: 46%; height: 58%; }
+  .card__icon { width: 52px; height: 52px; margin-bottom: 6px; }
+  .card__icon .ico { width: 26px; height: 26px; }
+  .card__title { font-size: 19px; }
+  .card__text { max-width: 54%; font-size: 14px; }
+  .card__eg p { font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

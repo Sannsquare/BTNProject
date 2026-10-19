@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Admin | Pengaduan Nasabah BTN</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- Toggle sidebar untuk layar kecil (tanpa JavaScript) -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Buka menu">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <a href="dashboard.html" class="brand">
+      <!-- Ganti dengan gambar logo resmi BTN: <img src="logo-btn.png" alt="BTN"> -->
+      <span class="brand__mark">BTN</span>
+      <span class="brand__text">
+        <strong>Pengaduan Nasabah</strong>
+        <small>Panel Admin</small>
+      </span>
+    </a>
+
+    <nav class="menu" aria-label="Menu utama">
+      <a href="dashboard.html" class="menu__link is-active">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm0-18v6h8V3h-8Z"/></svg>
+        Dashboard
+      </a>
+      <a href="pengaduan.html" class="menu__link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H7l-3 3V4Zm4 4v2h8V8H8Zm0 3v2h5v-2H8Z"/></svg>
+        Semua Pengaduan
+      </a>
+    </nav>
+
+    <a href="#logout" class="logout-btn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3H4v18h6v-2H6V5h4V3Zm6.600 4.600L15.200 9l2 2H9v2h8.200l-2 2 1.400 1.400L21 12l-4.400-4.400Z"/></svg>
+      Log out
+    </a>
+  </aside>
+
+  <label for="nav-toggle" class="scrim" aria-hidden="true"></label>
+
+  <!-- ============ KONTEN UTAMA ============ -->
+  <div class="main">
+
+    <header class="topbar">
+      <label for="nav-toggle" class="hamburger" title="Menu">
+        <span></span><span></span><span></span>
+      </label>
+      <h1 class="topbar__title">Dashboard</h1>
+      <div class="admin-chip">
+        <span class="admin-chip__avatar">A</span>
+        <span class="admin-chip__name">Admin BTN</span>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- Banner utama -->
+      <section class="hero">
+        <div class="hero__text">
+          <h2 class="hero__title">Selamat datang, Admin</h2>
+          <p class="hero__desc">Semua keluhan nasabah BTN yang masuk lewat website tercatat di sini. Semangat bekerja hari ini!</p>
+        </div>
+        <p class="hero__date" id="tanggal-hari">Jumat, 16 Oktober 2026</p>
+      </section>
+
+      <!-- Pencarian + filter -->
+      <form class="filter" id="form-filter" action="pengaduan.html" method="get" role="search">
+        <div class="field field--search">
+          <label for="q" class="sr-only">Cari pengaduan</label>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a6 6 0 1 0 3.700 10.700l5.300 5.300 1.400-1.400-5.300-5.300A6 6 0 0 0 10 4Zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/></svg>
+          <input type="search" id="q" name="q" autocomplete="off" placeholder="Cari nama, alamat, no. telp, atau jenis pengaduan">
+        </div>
+
+        <div class="field">
+          <label for="bulan" class="sr-only">Bulan</label>
+          <select id="bulan" name="bulan">
+            <option value="">Semua bulan</option>
+            <option value="1">Januari</option>
+            <option value="2">Februari</option>
+            <option value="3">Maret</option>
+            <option value="4">April</option>
+            <option value="5">Mei</option>
+            <option value="6">Juni</option>
+            <option value="7">Juli</option>
+            <option value="8">Agustus</option>
+            <option value="9">September</option>
+            <option value="10" selected>Oktober</option>
+            <option value="11">November</option>
+            <option value="12">Desember</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="tahun" class="sr-only">Tahun</label>
+          <select id="tahun" name="tahun">
+            <option value="">Semua tahun</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026" selected>2026</option>
+          </select>
+        </div>
+
+        <div class="field field--jenis">
+          <label for="jenis" class="sr-only">Jenis pengaduan</label>
+          <select id="jenis" name="jenis">
+            <option value="">Semua jenis</option>
+            <option value="kebersihan">Kebersihan</option>
+            <option value="customer-service">Customer Service</option>
+            <option value="e-loan">E-Loan</option>
+            <option value="teller">Teller</option>
+            <option value="pelayanan">Pelayanan</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn--primary">Terapkan</button>
+        <button type="button" class="btn btn--ghost" id="btn-reset">Reset</button>
+      </form>
+
+      <!-- Ringkasan -->
+      <section class="overview">
+        <div class="stats" aria-label="Ringkasan pengaduan">
+          <div class="stat">
+            <span class="stat__label">Total pengaduan</span>
+            <span class="stat__value" id="stat-total">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat__label">Jenis terbanyak</span>
+            <span class="stat__value stat__value--text" id="stat-terbanyak">-</span>
+          </div>
+          <div class="stat">
+            <span class="stat__label">Masuk hari ini</span>
+            <span class="stat__value" id="stat-hari">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat__label">Masuk minggu ini</span>
+            <span class="stat__value" id="stat-minggu">0</span>
+          </div>
+        </div>
+
+        <div class="panel breakdown">
+          <h2 class="panel__title">Pengaduan per jenis</h2>
+          <ul class="bars" id="bars"></ul>
+        </div>
+      </section>
+
+      <!-- Pengaduan terbaru -->
+      <section class="panel latest">
+        <div class="panel__head">
+          <div>
+            <h2 class="panel__title">Pengaduan terbaru</h2>
+            <p class="panel__sub" id="info-hasil"></p>
+          </div>
+          <a href="pengaduan.html" class="link-more" id="link-selengkapnya">Lihat selengkapnya</a>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">Jenis pengaduan</th>
+                <th scope="col" class="col-action"><span class="sr-only">Aksi</span></th>
+              </tr>
+            </thead>
+            <tbody id="tabel-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============ MODAL DETAIL (diisi oleh script.js, dibuka lewat #detail) ============ -->
+  <div class="modal" id="detail" role="dialog" aria-modal="true" aria-labelledby="judul-detail">
+    <a href="#" class="modal__backdrop" aria-label="Tutup"></a>
+    <div class="modal__box">
+      <div class="modal__head">
+        <h2 id="judul-detail">Detail pengaduan</h2>
+        <a href="#" class="modal__close" aria-label="Tutup">&times;</a>
+      </div>
+      <dl class="detail">
+        <div><dt>Tanggal</dt><dd id="d-tanggal"></dd></div>
+        <div><dt>Nama</dt><dd id="d-nama"></dd></div>
+        <div><dt>Alamat</dt><dd id="d-alamat"></dd></div>
+        <div><dt>No. telp</dt><dd id="d-telp"></dd></div>
+        <div><dt>Jenis pengaduan</dt><dd id="d-jenis"></dd></div>
+        <div class="detail__wide"><dt>Keluhan</dt><dd id="d-keluhan"></dd></div>
+      </dl>
+      <div class="modal__foot"><a href="#" class="btn btn--ghost">Tutup</a></div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL LOG OUT ============ -->
+  <div class="modal" id="logout" role="alertdialog" aria-modal="true" aria-labelledby="judul-logout">
+    <a href="#" class="modal__backdrop" aria-label="Batal"></a>
+    <div class="modal__box modal__box--small">
+      <div class="logout-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M10 3H4v18h6v-2H6V5h4V3Zm6.600 4.600L15.200 9l2 2H9v2h8.200l-2 2 1.400 1.400L21 12l-4.400-4.400Z"/></svg>
+      </div>
+      <h2 id="judul-logout">Keluar dari dashboard?</h2>
+      <p class="modal__text">Kamu perlu login lagi untuk melihat pengaduan nasabah.</p>
+      <div class="modal__foot modal__foot--center">
+        <a href="#" class="btn btn--ghost">Batal</a>
+        <a href="login.html" class="btn btn--danger">Ya, log out</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =====================================================
+   script.js | Dashboard Admin Pengaduan Nasabah BTN
+   Fungsi: pencarian, filter (bulan, tahun, jenis), tabel
+   pengaduan terbaru, ringkasan, grafik, dan popup detail.
+   ===================================================== */
+(() => {
+  'use strict';
+
+  /* ---------- DATA CONTOH ----------
+     Nanti ganti isi array ini dengan data dari backend/database.
+     Format tanggal wajib YYYY-MM-DD.
+     Pilihan jenis: kebersihan, customer-service, e-loan, teller, pelayanan, lainnya */
+  const DATA_PENGADUAN = [
+    { id: 1,  tanggal: '2026-10-16', nama: 'Rizky Pratama',        alamat: 'Jl. Ahmad Yani No. 12, Mogolaing, Kotamobagu',   telp: '0812-4401-2345', jenis: 'e-loan',           keluhan: 'Pengajuan e-loan saya sudah tiga hari berstatus menunggu verifikasi, tapi belum ada kabar dari petugas.' },
+    { id: 2,  tanggal: '2026-10-16', nama: 'Maria Tumbelaka',      alamat: 'Jl. Kartini, Kobo Besar, Kotamobagu',            telp: '0821-3345-8890', jenis: 'customer-service', keluhan: 'Kartu ATM tertelan. Saya sudah menelepon call center, tapi nomornya selalu sibuk.' },
+    { id: 3,  tanggal: '2026-10-16', nama: 'Hendra Paputungan',    alamat: 'Kelurahan Motoboi Besar, Kotamobagu',            telp: '0853-7766-1122', jenis: 'kebersihan',       keluhan: 'Lantai area antrean licin dan kotor setelah hujan, tidak ada petugas yang membersihkan.' },
+    { id: 4,  tanggal: '2026-10-15', nama: 'Siti Nurhaliza',       alamat: 'Jl. Sutoyo, Gogagoman, Kotamobagu',              telp: '0813-5502-7788', jenis: 'teller',           keluhan: 'Antrean di teller lebih dari 45 menit, padahal hanya dua loket yang dibuka.' },
+    { id: 5,  tanggal: '2026-10-15', nama: 'Frans Mokodongan',     alamat: 'Kelurahan Kotobangon, Kotamobagu',               telp: '0821-9012-3456', jenis: 'kebersihan',       keluhan: 'Toilet nasabah kotor dan tidak tersedia tisu maupun sabun.' },
+    { id: 6,  tanggal: '2026-10-14', nama: 'Dewi Lantong',         alamat: 'Kelurahan Biga, Kotamobagu',                     telp: '0852-1234-9876', jenis: 'customer-service', keluhan: 'Sudah dua hari menghubungi customer service untuk blokir kartu, tapi telepon tidak diangkat.' },
+    { id: 7,  tanggal: '2026-10-13', nama: 'Abdul Gani Damopolii', alamat: 'Kelurahan Molinow, Kotamobagu',                  telp: '0811-4400-6677', jenis: 'pelayanan',        keluhan: 'Petugas kurang ramah dan kurang jelas saat saya bertanya soal syarat pengajuan KPR.' },
+    { id: 8,  tanggal: '2026-10-12', nama: 'Yulianti Mamonto',     alamat: 'Jl. Dotulolong Lalu, Motoboi Kecil, Kotamobagu', telp: '0822-9876-5432', jenis: 'e-loan',           keluhan: 'Aplikasi e-loan error saat unggah foto KTP, sudah dicoba berkali-kali.' },
+    { id: 9,  tanggal: '2026-10-09', nama: 'Rahmat Hasan',         alamat: 'Kelurahan Genggulang, Kotamobagu',               telp: '0813-1122-3344', jenis: 'pelayanan',        keluhan: 'Proses pembukaan rekening memakan waktu hampir dua jam.' },
+    { id: 10, tanggal: '2026-10-08', nama: 'Novita Sumampow',      alamat: 'Kelurahan Matali Baru, Kotamobagu',              telp: '0857-8899-0011', jenis: 'teller',           keluhan: 'Teller salah memasukkan nominal setoran dan baru diperbaiki setelah saya komplain.' },
+    { id: 11, tanggal: '2026-10-06', nama: 'Ichsan Kobandaha',     alamat: 'Kelurahan Sinindian, Kotamobagu',                telp: '0812-9988-7766', jenis: 'lainnya',          keluhan: 'Lahan parkir nasabah terlalu sempit dan tidak ada petugas yang mengatur.' },
+    { id: 12, tanggal: '2026-10-02', nama: 'Margaretha Lasut',     alamat: 'Kelurahan Pobundayan, Kotamobagu',               telp: '0821-5566-7788', jenis: 'pelayanan',        keluhan: 'Informasi suku bunga dari petugas berbeda dengan yang tertulis di brosur.' },
+    { id: 13, tanggal: '2026-09-28', nama: 'Fadli Mokoginta',      alamat: 'Kelurahan Kotobangon, Kotamobagu',               telp: '0813-4455-6677', jenis: 'e-loan',           keluhan: 'Cicilan sudah dibayar, tapi status di aplikasi masih tertunggak.' },
+    { id: 14, tanggal: '2026-09-21', nama: 'Intan Permata Sari',   alamat: 'Kelurahan Upai, Kotamobagu',                     telp: '0852-3344-5566', jenis: 'customer-service', keluhan: 'Chat customer service hanya dibalas dengan jawaban otomatis dan tidak menyelesaikan masalah.' },
+    { id: 15, tanggal: '2026-09-15', nama: 'Jefry Mokodompit',     alamat: 'Kelurahan Biga, Kotamobagu',                     telp: '0811-2233-4455', jenis: 'kebersihan',       keluhan: 'Meja pengisian formulir berdebu dan pulpen yang tersedia tidak berfungsi.' },
+    { id: 16, tanggal: '2026-09-09', nama: 'Lisa Adampe',          alamat: 'Kelurahan Tumobui, Kotamobagu',                  telp: '0821-6677-8899', jenis: 'teller',           keluhan: 'Saldo tabungan tidak bertambah setelah setor tunai, padahal bukti setor sudah saya pegang.' },
+    { id: 17, tanggal: '2026-08-25', nama: 'Sulaiman Mokoagow',    alamat: 'Kelurahan Moyag, Kotamobagu',                    telp: '0812-7788-9900', jenis: 'pelayanan',        keluhan: 'Petugas tidak menjelaskan biaya administrasi saat pembukaan tabungan baru.' },
+    { id: 18, tanggal: '2026-08-12', nama: 'Rosdiana Datunsolang', alamat: 'Kelurahan Poyowa Besar, Kotamobagu',             telp: '0853-1100-2233', jenis: 'lainnya',          keluhan: 'Mesin ATM di depan kantor sering kehabisan uang tunai pada akhir pekan.' },
+    { id: 19, tanggal: '2026-03-10', nama: 'Benny Gobel',          alamat: 'Kelurahan Mogolaing, Kotamobagu',                telp: '0813-9090-1212', jenis: 'pelayanan',        keluhan: 'Pengurusan surat keterangan lunas lebih dari seminggu belum selesai.' },
+    { id: 20, tanggal: '2025-12-18', nama: 'Selvi Mokodongan',     alamat: 'Kelurahan Gogagoman, Kotamobagu',                telp: '0852-4545-6767', jenis: 'teller',           keluhan: 'Loket teller tutup lebih awal padahal jam layanan belum berakhir.' },
+    { id: 21, tanggal: '2025-10-20', nama: 'Arifin Lamato',        alamat: 'Kelurahan Kobo Kecil, Kotamobagu',               telp: '0811-7878-3434', jenis: 'kebersihan',       keluhan: 'Ruang tunggu berbau tidak sedap dan kursinya kotor.' },
+    { id: 22, tanggal: '2025-10-07', nama: 'Dian Paputungan',      alamat: 'Kelurahan Motoboi Kecil, Kotamobagu',            telp: '0821-1313-5757', jenis: 'e-loan',           keluhan: 'Pencairan pinjaman tertunda tanpa alasan yang jelas.' },
+    { id: 23, tanggal: '2025-10-03', nama: 'Wawan Kuhu',           alamat: 'Kelurahan Biga, Kotamobagu',                     telp: '0812-6464-8080', jenis: 'customer-service', keluhan: 'Email keluhan saya tidak pernah dibalas sampai sekarang.' }
+  ];
+
+  const JENIS = {
+    'kebersihan':       { label: 'Kebersihan',       tag: 'tag--kebersihan', bar: 'bar--kebersihan' },
+    'customer-service': { label: 'Customer Service', tag: 'tag--cs',         bar: 'bar--cs' },
+    'e-loan':           { label: 'E-Loan',           tag: 'tag--eloan',      bar: 'bar--eloan' },
+    'teller':           { label: 'Teller',           tag: 'tag--teller',     bar: 'bar--teller' },
+    'pelayanan':        { label: 'Pelayanan',        tag: 'tag--pelayanan',  bar: 'bar--pelayanan' },
+    'lainnya':          { label: 'Lainnya',          tag: 'tag--lainnya',    bar: 'bar--lainnya' }
+  };
+  const URUTAN_JENIS = Object.keys(JENIS);
+
+  const BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  const BULAN_PENDEK = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+  const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+  const JUMLAH_TERBARU = 5;   // jumlah baris di tabel "Pengaduan terbaru"
+  const TAHUN_MULAI = 2024;   // tahun paling awal di pilihan filter
+
+  const EYE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6.5 5 2.7 9 1 12c1.7 3 5.5 7 11 7s9.3-4 11-7c-1.7-3-5.5-7-11-7Zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9Zm0-7a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"/></svg>';
+
+  /* ---------- ELEMEN ---------- */
+  const $ = (selector, root = document) => root.querySelector(selector);
+
+  const form = $('#form-filter');
+  const inpQ = $('#q');
+  const selBulan = $('#bulan');
+  const selTahun = $('#tahun');
+  const selJenis = $('#jenis');
+  const btnReset = $('#btn-reset');
+
+  const tbody = $('#tabel-body');
+  const infoHasil = $('#info-hasil');
+  const linkSelengkapnya = $('#link-selengkapnya');
+  const barsEl = $('#bars');
+
+  const statTotal = $('#stat-total');
+  const statTerbanyak = $('#stat-terbanyak');
+  const statHari = $('#stat-hari');
+  const statMinggu = $('#stat-minggu');
+
+  /* ---------- BANTUAN ---------- */
+  const pad = (n) => String(n).padStart(2, '0');
+  const infoJenis = (kunci) => JENIS[kunci] || JENIS.lainnya;
+
+  const esc = (teks) => String(teks).replace(/[&<>"']/g, (c) => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+
+  const parseTanggal = (iso) => {
+    const [y, m, d] = iso.split('-').map(Number);
+    return { y, m, d };
+  };
+  const formatPendek = (iso) => { const t = parseTanggal(iso); return `${t.d} ${BULAN_PENDEK[t.m - 1]} ${t.y}`; };
+  const formatPanjang = (iso) => { const t = parseTanggal(iso); return `${t.d} ${BULAN[t.m - 1]} ${t.y}`; };
+  const isoDari = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+
+  const inisial = (nama) => nama.trim().split(/\s+/).slice(0, 2).map((k) => k[0]).join('').toUpperCase();
+
+  /* ---------- TANGGAL HARI INI ---------- */
+  const sekarang = new Date();
+  const hariIniISO = isoDari(sekarang);
+  const seninMinggu = new Date(sekarang.getFullYear(), sekarang.getMonth(), sekarang.getDate() - ((sekarang.getDay() + 6) % 7));
+  const mingguMulaiISO = isoDari(seninMinggu);
+  const mingguAkhirISO = isoDari(new Date(seninMinggu.getFullYear(), seninMinggu.getMonth(), seninMinggu.getDate() + 6));
+
+  const tanggalHero = $('#tanggal-hari');
+  if (tanggalHero) {
+    tanggalHero.textContent = `${HARI[sekarang.getDay()]}, ${sekarang.getDate()} ${BULAN[sekarang.getMonth()]} ${sekarang.getFullYear()}`;
+  }
+
+  /* ---------- PILIHAN TAHUN & NILAI AWAL FILTER ---------- */
+  const tahunAkhir = Math.max(2026, sekarang.getFullYear());
+  let opsiTahun = '<option value="">Semua tahun</option>';
+  for (let y = TAHUN_MULAI; y <= tahunAkhir; y++) opsiTahun += `<option value="${y}">${y}</option>`;
+  selTahun.innerHTML = opsiTahun;
+
+  const setNilaiAwal = () => {
+    inpQ.value = '';
+    selBulan.value = String(sekarang.getMonth() + 1);
+    selTahun.value = String(sekarang.getFullYear());
+    selJenis.value = '';
+  };
+
+  /* ---------- FILTER ---------- */
+  const ambilFilter = () => ({
+    qAsli: inpQ.value.trim(),
+    q: inpQ.value.trim().toLowerCase(),
+    bulan: selBulan.value,
+    tahun: selTahun.value,
+    jenis: selJenis.value
+  });
+
+  const cocok = (item, f) => {
+    const t = parseTanggal(item.tanggal);
+    if (f.bulan && t.m !== Number(f.bulan)) return false;
+    if (f.tahun && t.y !== Number(f.tahun)) return false;
+    if (f.jenis && item.jenis !== f.jenis) return false;
+
+    if (f.q) {
+      const jerami = [
+        item.nama, item.alamat, item.telp,
+        item.telp.replace(/\D/g, ''),
+        infoJenis(item.jenis).label
+      ].join(' ').toLowerCase();
+      // semua kata yang diketik harus ketemu
+      return f.q.split(/\s+/).every((kata) => jerami.includes(kata));
+    }
+    return true;
+  };
+
+  const urutkanTerbaru = (daftar) => daftar.slice().sort((a, b) => {
+    if (a.tanggal !== b.tanggal) return a.tanggal < b.tanggal ? 1 : -1;
+    return b.id - a.id;
+  });
+
+  let hasilFilter = [];
+  let tandaBar = '';
+
+  /* ---------- RENDER ---------- */
+  const labelPeriode = (f) => {
+    const bagian = [];
+    if (f.bulan) bagian.push(BULAN[Number(f.bulan) - 1]);
+    if (f.tahun) bagian.push(f.tahun);
+    return bagian.length ? bagian.join(' ') : 'semua periode';
+  };
+
+  const barisHTML = (item) => {
+    const j = infoJenis(item.jenis);
+    return `<tr>
+      <td class="td-date" data-label="Tanggal"><time datetime="${item.tanggal}">${formatPendek(item.tanggal)}</time></td>
+      <td class="td-name"><span class="person"><span class="person__avatar">${esc(inisial(item.nama))}</span>${esc(item.nama)}</span></td>
+      <td data-label="Alamat">${esc(item.alamat)}</td>
+      <td data-label="Jenis"><span class="tag ${j.tag}">${j.label}</span></td>
+      <td class="col-action"><a href="#detail" class="eye" data-id="${item.id}" title="Lihat detail" aria-label="Lihat detail pengaduan ${esc(item.nama)}">${EYE_SVG}</a></td>
+    </tr>`;
+  };
+
+  const renderTabel = (f) => {
+    const total = hasilFilter.length;
+    const tampil = hasilFilter.slice(0, JUMLAH_TERBARU);
+    const periode = labelPeriode(f);
+
+    if (total === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Tidak ada pengaduan yang cocok. Coba ubah kata kunci atau filter.</td></tr>';
+      infoHasil.textContent = `Tidak ada pengaduan untuk ${periode}`;
+    } else {
+      tbody.innerHTML = tampil.map(barisHTML).join('');
+      infoHasil.textContent = `Menampilkan ${tampil.length} dari ${total} pengaduan (${periode})`;
+    }
+  };
+
+  const hitungPerJenis = () => {
+    const hitung = {};
+    URUTAN_JENIS.forEach((k) => { hitung[k] = 0; });
+    hasilFilter.forEach((d) => { hitung[JENIS[d.jenis] ? d.jenis : 'lainnya'] += 1; });
+    return hitung;
+  };
+
+  const renderBar = (hitung) => {
+    const urut = URUTAN_JENIS.filter((k) => k !== 'lainnya').sort((a, b) => hitung[b] - hitung[a]).concat('lainnya');
+    const maks = Math.max(...urut.map((k) => hitung[k]));
+    const tanda = urut.map((k) => `${k}:${hitung[k]}`).join('|');
+    if (tanda === tandaBar) return; // tidak ada perubahan, hindari animasi ulang
+    tandaBar = tanda;
+
+    barsEl.innerHTML = urut.map((k) => {
+      const lebar = hitung[k] ? Math.max(6, Math.round((hitung[k] / maks) * 100)) : 0;
+      return `<li class="bar ${JENIS[k].bar}">
+        <span class="bar__name">${JENIS[k].label}</span>
+        <span class="bar__track"><span class="bar__fill" style="--v:${lebar}%"></span></span>
+        <span class="bar__num">${hitung[k]}</span>
+      </li>`;
+    }).join('');
+  };
+
+  const renderStat = (hitung) => {
+    statTotal.textContent = hasilFilter.length;
+
+    let terbanyak = '-';
+    let nilaiMaks = 0;
+    URUTAN_JENIS.forEach((k) => {
+      if (hitung[k] > nilaiMaks) { nilaiMaks = hitung[k]; terbanyak = JENIS[k].label; }
+    });
+    statTerbanyak.textContent = terbanyak;
+
+    // "Hari ini" & "minggu ini" selalu dihitung dari semua data (tidak ikut filter)
+    statHari.textContent = DATA_PENGADUAN.filter((d) => d.tanggal === hariIniISO).length;
+    statMinggu.textContent = DATA_PENGADUAN.filter((d) => d.tanggal >= mingguMulaiISO && d.tanggal <= mingguAkhirISO).length;
+  };
+
+  const perbaruiLink = (f) => {
+    const params = new URLSearchParams();
+    if (f.qAsli) params.set('q', f.qAsli);
+    if (f.bulan) params.set('bulan', f.bulan);
+    if (f.tahun) params.set('tahun', f.tahun);
+    if (f.jenis) params.set('jenis', f.jenis);
+    const qs = params.toString();
+    linkSelengkapnya.href = 'pengaduan.html' + (qs ? `?${qs}` : '');
+  };
+
+  const terapkan = () => {
+    const f = ambilFilter();
+    hasilFilter = urutkanTerbaru(DATA_PENGADUAN.filter((d) => cocok(d, f)));
+    const hitung = hitungPerJenis();
+    renderTabel(f);
+    renderBar(hitung);
+    renderStat(hitung);
+    perbaruiLink(f);
+  };
+
+  /* ---------- EVENT FILTER ---------- */
+  let timer;
+  inpQ.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(terapkan, 150);
+  });
+  [selBulan, selTahun, selJenis].forEach((el) => el.addEventListener('change', terapkan));
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    terapkan();
+  });
+
+  btnReset.addEventListener('click', () => {
+    setNilaiAwal();
+    terapkan();
+    inpQ.focus();
+  });
+
+  /* ---------- POPUP DETAIL ---------- */
+  const isiDetail = (item) => {
+    const j = infoJenis(item.jenis);
+    $('#d-tanggal').textContent = formatPanjang(item.tanggal);
+    $('#d-nama').textContent = item.nama;
+    $('#d-alamat').textContent = item.alamat;
+    $('#d-telp').textContent = item.telp;
+    $('#d-jenis').innerHTML = `<span class="tag ${j.tag}">${j.label}</span>`;
+    $('#d-keluhan').textContent = item.keluhan;
+  };
+
+  tbody.addEventListener('click', (e) => {
+    const tombol = e.target.closest('.eye');
+    if (!tombol) return;
+    const item = DATA_PENGADUAN.find((d) => d.id === Number(tombol.dataset.id));
+    if (item) isiDetail(item);
+    setTimeout(() => { const tutup = $('#detail .modal__close'); if (tutup) tutup.focus(); }, 60);
+  });
+
+  // Tutup popup tanpa halaman loncat ke atas
+  const tutupModal = () => {
+    const y = window.pageYOffset;
+    if (location.hash) location.hash = '';
+    window.scrollTo(0, y);
+  };
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.modal a[href="#"]')) {
+      e.preventDefault();
+      tutupModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && location.hash) tutupModal();
+  });
+
+  /* ---------- MULAI ---------- */
+  setNilaiAwal();
+  terapkan();
+})();
+  </script>
+
+</body>
+</html>
