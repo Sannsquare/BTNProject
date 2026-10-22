@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form Pengaduan | Bank BTN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a href="#" class="back" aria-label="Kembali">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </a>
+      <h1 class="topbar__title">Form Pengaduan</h1>
+      <div class="logo" aria-label="Bank BTN">
+        <span class="logo__bank">Bank</span>
+        <svg class="logo__icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M9 10v6M9 10h4a2 2 0 0 1 0 3H9m4 0a2 2 0 0 1 0 3H9" stroke-width="1.6"/></svg>
+        <span class="logo__btn">BTN</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- Banner -->
+    <section class="hero">
+      <div class="hero__art" aria-hidden="true">
+        <svg viewBox="0 0 120 120" width="100%" height="100%">
+          <rect x="22" y="34" width="54" height="68" rx="6" fill="#cfdcf3" transform="rotate(-8 49 68)"/>
+          <rect x="30" y="24" width="56" height="72" rx="6" fill="#1f4fa8"/>
+          <rect x="40" y="38" width="26" height="4" rx="2" fill="#fff"/>
+          <rect x="40" y="48" width="36" height="4" rx="2" fill="#8fb0ea"/>
+          <rect x="40" y="58" width="36" height="4" rx="2" fill="#8fb0ea"/>
+          <rect x="40" y="68" width="22" height="4" rx="2" fill="#8fb0ea"/>
+          <circle cx="86" cy="84" r="17" fill="#e8213f"/>
+          <rect x="84" y="73" width="4" height="13" rx="2" fill="#fff"/>
+          <circle cx="86" cy="91" r="2.4" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="hero__text">
+        <h2>Sampaikan keluhan atau pengaduan Anda dengan mudah dan cepat.</h2>
+        <p>Kami siap membantu Anda mendapatkan solusi terbaik.</p>
+      </div>
+      <svg class="hero__wave" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 40 L200 8 V40Z" fill="#e8213f"/>
+        <path d="M60 40 L200 16 V40Z" fill="#1b3f8f"/>
+      </svg>
+    </section>
+
+    <!-- Form -->
+    <form class="card" id="formPengaduan" novalidate>
+
+      <h2 class="section-title">Data Diri</h2>
+
+      <div class="field">
+        <label for="nama" class="field__label">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+          <span>Nama Lengkap <b class="req">*</b></span>
+        </label>
+        <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap Anda" required>
+      </div>
+
+      <div class="field">
+        <label for="alamat" class="field__label">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
+          <span>Alamat <b class="req">*</b></span>
+        </label>
+        <input type="text" id="alamat" name="alamat" placeholder="Masukkan alamat lengkap Anda" required>
+      </div>
+
+      <div class="field">
+        <label for="telepon" class="field__label">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          <span>Nomor Telepon <b class="req">*</b></span>
+        </label>
+        <input type="tel" id="telepon" name="telepon" placeholder="Contoh: 081234567890" inputmode="numeric" required>
+      </div>
+
+      <hr class="divider">
+
+      <h2 class="section-title">Pengaduan / Keluhan</h2>
+
+      <div class="field">
+        <div class="field__label" id="jenisLabel">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor"/></svg>
+          <span>Jenis Pengaduan <b class="req">*</b></span>
+        </div>
+        <div class="choices" id="jenis" role="radiogroup" aria-labelledby="jenisLabel">
+          <label class="choice">
+            <input type="radio" name="jenis" value="Pelayanan" required>
+            <span class="choice__box"><i class="choice__dot" aria-hidden="true"></i>Pelayanan</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="jenis" value="Kebersihan">
+            <span class="choice__box"><i class="choice__dot" aria-hidden="true"></i>Kebersihan</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="jenis" value="Customer Service">
+            <span class="choice__box"><i class="choice__dot" aria-hidden="true"></i>Customer Service</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="jenis" value="E-Loan">
+            <span class="choice__box"><i class="choice__dot" aria-hidden="true"></i>E-Loan</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="jenis" value="Teller">
+            <span class="choice__box"><i class="choice__dot" aria-hidden="true"></i>Teller</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="jenis" value="Lainnya">
+            <span class="choice__box"><i class="choice__dot" aria-hidden="true"></i>Lainnya</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="pesan" class="field__label">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M7 9h10M7 13h6"/></svg>
+          <span>Pesan Pengaduan <b class="req">*</b></span>
+        </label>
+        <textarea id="pesan" name="pesan" rows="6" maxlength="1000" placeholder="Jelaskan keluhan atau pengaduan Anda secara detail..." required></textarea>
+        <div class="counter"><span id="hitung">0</span>/1000</div>
+      </div>
+
+      <div class="notice">
+        <span class="notice__icon" aria-hidden="true">i</span>
+        <p>Pastikan data yang Anda isi sudah benar dan sesuai dengan kondisi yang sebenarnya. Pengaduan yang tidak sesuai ketentuan akan ditolak.</p>
+      </div>
+
+      <label class="agree">
+        <input type="checkbox" id="setuju" name="setuju" checked>
+        <span class="agree__box" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+        </span>
+        <span>Saya menyatakan bahwa seluruh informasi yang saya berikan adalah benar dan dapat dipertanggungjawabkan.</span>
+      </label>
+
+      <button type="submit" class="btn">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M21.5 2.5 2.8 10.2c-.8.3-.8 1.4 0 1.7l4.6 1.8 1.8 5.6c.2.8 1.2 1 1.7.4l2.5-2.9 4.4 3.3c.6.5 1.5.1 1.7-.6l3-15.6c.2-.9-.7-1.5-1.5-1.1zM8.8 13l9-6.3-6.8 7.6-.4 3.1z"/></svg>
+        Kirim Pengaduan
+      </button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <svg class="footer__skyline" viewBox="0 0 400 90" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <g fill="none" stroke="#c9d6ee" stroke-width="1.4">
+        <rect x="14" y="40" width="22" height="50"/><rect x="40" y="26" width="18" height="64"/>
+        <path d="M110 90V30l8-22 8 22v60M100 90V50h36v40"/>
+        <rect x="150" y="48" width="26" height="42"/><rect x="182" y="58" width="24" height="32"/>
+        <rect x="212" y="40" width="22" height="50"/>
+      </g>
+    </svg>
+    <div class="footer__brand">
+      <div class="logo logo--sm">
+        <span class="logo__bank">Bank</span>
+        <svg class="logo__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M9 10v6M9 10h4a2 2 0 0 1 0 3H9m4 0a2 2 0 0 1 0 3H9" stroke-width="1.6"/></svg>
+        <span class="logo__btn">BTN</span>
+      </div>
+      <small>Kebaikan Untuk Semua</small>
+    </div>
+    <svg class="footer__wave" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 60V38C90 52 220 40 400 6V60Z" fill="#1b3f8f"/>
+      <path d="M180 60C260 44 330 28 400 18V34C330 40 270 54 230 60Z" fill="#e8213f"/>
+    </svg>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
